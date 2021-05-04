@@ -24,8 +24,8 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    
+    public function create(){
         
     }
 
@@ -35,8 +35,8 @@ class ItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
+
         $item = new Item;
         $item->name = $request->item["name"];
         $item->save();
@@ -50,8 +50,7 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         //
     }
 
@@ -61,8 +60,7 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         //
     }
 
@@ -87,7 +85,6 @@ class ItemController extends Controller
         
         return "item not found";
 
-
     }
 
     /**
@@ -98,6 +95,13 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deleteItem = Item::where('id',$id)->first();
+
+        if($deleteItem){
+            $deleteItem->delete();
+            return "Item has been deleted";
+        }
+
+        return "item not found";
     }
 }
