@@ -1,18 +1,26 @@
 <template>
     <div>
         <div v-for="(item, index) in items" :key="index">
-            <listItem
-                :item = "ïtem"
+            
+            <item 
+                :item = "item"
                 class="item"
+                v-on:itemchanged = "$emit('reloadlist')"
             />
+
         </div>
     </div>
 </template>
 
 <script>
-import listItem from "./item"
+
+import Item from './item.vue'
+
 export default {
-    props:['item']
+    props:['items'],
+    components:{
+        Item,
+    }
 }
 </script>
 

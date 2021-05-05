@@ -4,11 +4,15 @@
             <h2 id="title">
                 Vue Todo List 
             </h2>
-            <add-item />
-            <item-list 
-                :items="items"
+            <add-item
+                v-on:reloadlist="getList()"
             />
+            
         </div>
+        <item-list
+            :items="items"
+            v-on:reloadlist="getList()"
+        />
     </div>
 </template>
 
@@ -16,30 +20,32 @@
 
 import AddItem from './addItem.vue'
 import ItemList from './itemList.vue'
+
 export default {
     components:{
         AddItem,
+        ItemList,
         ItemList
     },
 
-    data: {
-        return() {
+    data: function() {
+        return {
             items:[]
         }
     },
+
     methods: {
         getList() {
             axios.get('api/items')
             .then(response => {
-                
-                this.items =response.data;
-                
+                this.items = response.data;
             })
             .catch(error =>{
                 console.log(error);
             })
         }
     },
+
     created(){
         this.getList();
     }
@@ -54,7 +60,7 @@ export default {
 
 .heading{
     background: #e6e6e6;
-    padding: 10%;
+    padding: 10px;
 }
 #title{
     text-align: center;
